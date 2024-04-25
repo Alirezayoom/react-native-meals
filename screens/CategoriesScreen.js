@@ -4,7 +4,7 @@ import CategoryGridTile from "../Components/CategoryGridTile";
 
 const renderCategoryItem = (itemData) => {
   return (
-    <CategoryGridTile title={itemData.item.title} color={itemData.color} />
+    <CategoryGridTile title={itemData.item.title} color={itemData.item.color} />
   );
 };
 
@@ -15,6 +15,7 @@ function CategoriesScreen() {
         data={CATEGORIES}
         keyExtractor={(data) => data.id}
         renderItem={renderCategoryItem}
+        numColumns={2}
       />
     </View>
   );
