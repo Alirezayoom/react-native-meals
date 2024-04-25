@@ -1,7 +1,8 @@
 import { Text } from "react-native";
 
-function MealsOverview() {
-  return <Text>MealsOverview</Text>;
+function MealsOverview({ route }) {
+  const { categoryId } = route.params;
+  return <Text>MealsOverview - {categoryId}</Text>;
 }
 
 export default MealsOverview;
