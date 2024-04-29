@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../Components/MealDetails";
 
@@ -8,33 +8,62 @@ function MealDetailScreen({ route }) {
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
-      <Text style={{ color: "black" }}>{selectedMeal.title}</Text>
-      <MealDetails
-        duration={selectedMeal.duration}
-        complexity={selectedMeal.complexity}
-        affordability={selectedMeal.affordability}
-      />
 
-      <Text>Ingredients</Text>
-      {selectedMeal.ingredients.map((ingredient) => (
-        <Text key={ingredient}>{ingredient}</Text>
-      ))}
-      <Text>Steps</Text>
-      {selectedMeal.steps.map((step) => (
-        <Text key={step}>{step}</Text>
-      ))}
-    </View>
+      <View style={styles.content}>
+        <Text style={[styles.text, styles.title]}>{selectedMeal.title}</Text>
+        <MealDetails
+          duration={selectedMeal.duration}
+          complexity={selectedMeal.complexity}
+          affordability={selectedMeal.affordability}
+          textStyle={styles.text}
+        />
+
+        <Text style={styles.subTitle}>Ingredients</Text>
+        <View style={styles.list}>
+          {selectedMeal.ingredients.map((ingredient) => (
+            <Text style={styles.listItem} key={ingredient}>
+              {ingredient}
+            </Text>
+          ))}
+        </View>
+        <Text style={styles.subTitle}>Steps</Text>
+        <View style={styles.list}>
+          {selectedMeal.steps.map((step) => (
+            <Text style={styles.listItem} key={step}>
+              {step}
+            </Text>
+          ))}
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 export default MealDetailScreen;
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "white" },
+  container: {},
   image: {
     width: "100%",
     aspectRatio: "16/9",
+  },
+  content: {
+    marginVertical: 12,
+    marginHorizontal: 24,
+  },
+  text: { color: "white" },
+  title: { fontWeight: "bold", fontSize: 24, textAlign: "center" },
+  subTitle: { color: "white", fontSize: 20, textAlign: "center", margin: 8 },
+  list: { marginBottom: 8 },
+  listItem: {
+    color: "black",
+    backgroundColor: "white",
+    borderRadius: 8,
+    padding: 4,
+    textAlign: "center",
+    marginVertical: 4,
+    marginHorizontal: 16,
   },
 });
